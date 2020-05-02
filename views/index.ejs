@@ -1,0 +1,376 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+<!-- ...........................................OTHER LINKS.......................................... -->
+
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
+
+
+  <!-- ...................................BOOTSTRAP LINKS............................................. -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <!-- ...................................MAP LINKS............................................. -->
+  
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+
+
+  <!-- ...................................GOOGLE FONT LINKS............................................. -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+  <!-- ...................................WEATHER IOC LINK............................................. -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+  <!-- ...................................FONTAWSOME LINKS............................................. -->
+
+  <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+  <!-- <script src="https://kit.fontawesome.com/cc7f6f9f13.js" crossorigin="anonymous"></script> -->
+
+  <!-- ...................................FLICKITY LINK............................................. -->
+
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+  <title>Weather App</title>
+</head>
+
+<style>
+  /* ................................................MAIN.................................................. */
+    body{
+        background-color: #22A7B9;
+        position: relative;
+    }
+    .main{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ................................................CARD STYLE.................................................. */
+    .card{
+      align-items: center;
+      width: 800px;
+      height: auto;
+      padding-bottom:30px;
+      top: 10px;
+      background: #FFFFFF;
+      box-shadow: 0px 44px 57px rgba(0, 0, 0, 0.15);
+      border-radius: 42px;
+    }
+
+    /* ...............................................SEARCH COLUMN STYLE................................................. */
+    .row1{
+      padding-left: 40px;
+       display: grid; 
+       grid-template-columns: 1fr 1fr; 
+       
+    }
+    .firstcol{
+      margin-top: 100px;
+      height: auto;
+    }
+    .weather{
+      font-style: normal;
+      font-weight: 800;
+      margin-bottom: 0px;
+    }
+    .happyday{
+      font-style: normal;
+      font-weight: normal;
+      letter-spacing: 2em;
+    }
+    input{
+      border-top: hidden ;
+      border-left: hidden;
+      border-right: hidden ;
+      border-bottom-color: black; 
+      outline: none;
+    }
+    .search{
+        outline: none !important;
+        border: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: white;
+        background-color:rgb(248, 110, 86) ;
+        border-radius: 50px;
+        margin-left: 10px;
+    }
+
+    /* .............................................DATA COLUMN STYLE........................................... */
+    .secondcol{
+      margin-top: 50px;
+    }
+  
+    .grid_cont{
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 180px 64px;
+    }
+  
+    .temp{
+      font-family: 'Reem Kufi';
+      font-style: normal;
+      font-weight: normal;
+      font-size: 100px;
+    }
+    .degree{
+      font-size: 50px;
+      color: rgb(255, 62, 62);
+    }
+    a{
+      text-decoration:none !important;
+      margin:10px;
+    }
+    .c{
+      border: none;
+      margin: none;
+      outline: none !important;
+      background-color: transparent;
+    }
+    .f{
+      border: none;
+      margin: none;
+      outline: none !important;
+      background-color: transparent;
+    }
+    
+    #map {  
+    margin-top:50px ;
+		width:349px;
+		height: 150px; 
+    border-radius: 10px;
+  }
+   
+/* ...............................................OTHER VALUES STYLE.................................................. */
+
+    .h6{
+      color: rgb(197, 197, 197);
+    }
+    .list{
+      display: grid;
+      grid-template-columns: 100px 110px 150px;
+    }
+/* ................................................FOERCASTING STYLE.................................................. */
+.Graph{
+      outline: none !important;
+        border: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: white;
+        background-color:rgb(93, 218, 109) ;
+        border-radius: 10px;
+    }
+    .main-carousel{
+    width:350px;
+    margin-top: 10px;
+  }
+ .carousel-cell {
+  width: 33%;
+  height: 120px;
+  margin-right: 10px;
+}
+.carousel-cell.size-180 { width: 180px; }
+.carousel-cell.size-large { width: 75%; }
+.carousel-cell {
+  background: linear-gradient( 215.13deg,  rgba(5,111,146,1) 13.5%, rgba(6,57,84,1) 78.6% );
+  border-radius: 10px;
+}
+.flickity-button {
+  outline: none;
+  background: none;
+}
+.flickity-button-icon {
+  outline-style: none;
+  fill: none;
+}
+.flickity-button:hover {
+  background: none;
+}
+.flickity-page-dots .dot {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+  background: none;
+}
+.day{
+  text-align: center;
+  padding-top: 10px;
+  font-family: 'Poppins';
+  color: #FFFFFF;
+}
+.icon_img{
+  display: block;
+  margin: auto;
+  margin-top: -20px;
+}
+.T_status{
+  margin-top: -20px;
+  font-family: 'Reem Kufi';
+  color: white;
+  text-align: center;
+}
+/* .................................................ERROE PAGE STYLE....................................... */
+    .gif{
+      margin-left: -40px;
+      margin-top: 10px;
+    }
+    
+    .message{
+      font-family: 'Indie Flower';
+      margin-bottom: 0px;
+    }
+
+/* ......................................................RESPONSIVE STYLE.................................... */
+@media screen and (max-width:768px){
+  .card{
+    width:580px;
+  }
+  .weather{
+    font-size: 30px;
+  }
+  .main_gif{
+    width: 50px;
+    height: 50px;
+  }
+  .happyday{
+    font-size: 10px;
+  }
+  #map{
+    width:300px;
+		height: 150px; 
+  }
+  .row1{
+    grid-column-gap: 10px;
+    padding-left: 30px;
+  }
+  .city_name {
+    font-size: 25px;
+  }
+  .message{
+    font-size: x-small;
+  }
+  .search{ 
+    /* background-image: url(search.png); */
+    padding: 15px;
+    border-radius: 50px;
+    font-size: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+  }
+  .form{
+    margin-bottom: 0px;
+  }
+  .grid_cont{
+    margin-top: 0px;
+  }
+  .temp{
+    font-size: 70px;
+  }
+  .degree{
+    font-size: 30px;
+  }
+  .grid_cont{
+    grid-template-columns: 120px 64px;
+  }
+  .i{
+    width: 50px;
+    height: 50px;
+  }
+.h6{
+  font-size: small;
+}
+.png{
+ width: 15px;
+ height: 15px;
+}
+.list{
+  grid-template-columns: 60px 80px 90px;
+}
+.main-carousel{
+    width:220px;
+  }
+ .carousel-cell {
+  width: auto;
+  height: 120px;
+}
+}
+
+/* ...................................................RESPONSIVE STYLE 2......................................... */
+@media screen and (max-width:600px){
+  .card{
+    width: 90%;
+    border-radius: 20px;
+  }
+  .row1{
+       display: grid; 
+       padding-left: 0px;
+       grid-template-columns: auto ; 
+    }
+  .weather{
+    font-size: 9vw;
+  }
+  .search{ 
+    /* background-image: url(search.png); */
+    padding: 15px;
+    border-radius: 50px;
+    font-size: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+  }
+  .firstcol{
+    margin-top: 30px;
+  }
+  #map{
+    width: 100%;
+  }
+  .list{
+  grid-template-columns: 100px 100px 100px;
+}
+.main-carousel{
+    width:100%;
+  }
+.icons{
+  margin-left: 30px;
+}
+}
+</style>
+
+<body>
+  <div class="main">
+<!-- ......................................CARD DIVISION............................................... -->
+      <div class="card">
+          <div class="row1">
+            <!-- .................................FIRST COLUMN....................................... -->
+            <div class="firstcol ">
+              <h1 class="weather">Weather App<img class="main_gif" src="main.gif" alt="" width="80px" height="80px" ></h1>
+              <p class="happyday">HAPPYDAY</p>
+              <form action="/" method="POST">
+                <input  type="text" name="city" placeholder="City Name" autocomplete="off">
+                <button class="search">Search</button>
+              </form>
+           
+            

@@ -1,0 +1,127 @@
+<%-include( "index");%>
+
+<!-- ..................................MAP DIVISION.......................................... -->
+
+
+<div id="map"></div>
+</div>
+
+<!--.....................................SECOND COLUMN............................................  -->
+<div class="secondcol ">
+    <h1 class="city_name"><%=city_name%></h1>
+    <p class="message"><%=status%></p>
+    <form action="/degree" method="POST" class="form">
+        <button class="c" name="Cel" value="C">°C</button>    <button class="f" name="Cel" value="F">°F</button>
+    </form>
+    <div class="grid_cont" style="height: 120px;">
+    <h3 class="temp"><%=temp%><span class="degree"><%=deg%> </span></h3>
+    <figure class="icons" style="width: 64px; height: 64px;"><canvas id="cloudy" class="i" width="64" height="64"></canvas></figure>
+  </div>
+  <div class="list">
+    <h6 class="h6"><img class="png" src="drop.png" alt=""><span> <%=humid%> %</span> </h6>
+    <h6 class="h6"><img class="png" src="wind.png" alt=""> <span> <%=wind%> <%=W_unit%></span> </h6>
+    <h6 class="h6"><img class="png" src="pressure.png" alt=""><span class="sunr"> <%=Pres%></span><span> P</span></h6>
+  </div>
+
+<!--....................................FORECAST DIVISION........................................  -->
+
+  <div class="forecast_division">
+    <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true }'>
+        <% for(var j=0; j<Day.length ;j=j+8 ){ %>   
+        <div class="carousel-cell">
+            <h6 class="day"><%=Day[j]%></h6>
+            <img class="icon_img" style="width: 90; height: 90;" src="<%=W_status[j]%>" alt="">
+            <p class="T_status"><%=T_status[j]%>°</p>
+        </div>
+        <% } %>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+<!-- ..........................................SCRIPTING WORK................................................ -->
+
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+<script>
+    // ....................................SCRIPTING TO DISPLAY WEATHERICON.................................
+    var icon = "<%=icon_data%>";
+    switch(icon){
+        case 'Drizzle':
+            var icons = new Skycons({"color": "#888888"});
+            document.querySelector("canvas").setAttribute("id","rain");
+            icons.set("rain", Skycons.RAIN);
+            icons.play();
+            break;
+        case 'Thunderstorm'||'Rain':
+            var icons = new Skycons({"color": "#035aa6"});
+            document.querySelector("canvas").setAttribute("id","sleet");
+            icons.set("sleet", Skycons.SLEET);
+            icons.play();
+            break;
+        case  'Rain':
+            var icons = new Skycons({"color": "#035aa6"});
+            document.querySelector("canvas").setAttribute("id","sleet");
+            icons.set("sleet", Skycons.SLEET);
+            icons.play();
+            break;
+        case 'Snow':
+            var icons = new Skycons({"color": "#b2ebf2"});
+            document.querySelector("canvas").setAttribute("id","snow");
+            icons.set("snow", Skycons.SNOW);
+            icons.play();
+            break;
+        case 'Fog'||'Smoke'||'Mist'||'Dust':
+            var icons = new Skycons({"color": "#d2c6b2"});
+            document.querySelector("canvas").setAttribute("id","fog");
+            icons.set("fog", Skycons.FOG);
+            icons.play();
+            break;
+        case 'Tornado'||'Squall'||'Ash'||'Sand':
+            var icons = new Skycons({"color": "#16817a"});
+            document.querySelector("canvas").setAttribute("id","wind");
+            icons.set("wind", Skycons.WIND);
+            icons.play();
+            break;
+        case 'Clear':
+            var icons = new Skycons({"color": "#f4e04d"});
+            document.querySelector("canvas").setAttribute("id","clear-day");
+            icons.set("clear-day", Skycons.CLEAR_DAY);
+            icons.play();
+            break;
+        case 'Clouds':
+            var icons = new Skycons({"color": "black"});
+            document.querySelector("canvas").setAttribute("id","partly-cloudy-day");
+            icons.set("partly-cloudy-day", Skycons.PARTLY_CLOUDY_DAY);
+            icons.play();
+            break;
+        case 'Haze':
+                var icons = new Skycons({"color": "#dee3e2"});
+            document.querySelector("canvas").setAttribute("id","cloudy");
+            icons.set("cloudy", Skycons.CLOUDY);
+            icons.play();
+            break;
+        default:
+            break;
+    }
+
+    // ....................................................SCRIPTING TO DISPLAY MAP................................
+    var longi = <%=lon%>;
+    var lati = <%=lat%>;
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWFub2oyIiwiYSI6ImNrOWpseG5zbjAwNWozbHMzcHYyNWc3NDAifQ.nlVftU_b-VimYZSNjoAR8A';
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [longi, lati],
+  zoom: 8
+  });
+  var marker = new mapboxgl.Marker()
+  .setLngLat([longi, lati])
+  .addTo(map);  
+</script>
+
+
