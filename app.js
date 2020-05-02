@@ -29,6 +29,7 @@ app.get("/",function(req,res){;
 
 app.get("/:cityname",function(req,res){;
     city_name = req.params.cityname;
+    console.log(city_name);
     const unit ="metric";
     const api_key="695784529c13eb2958fd98f81c88fefb";   
     const url ="https://api.openweathermap.org/data/2.5/weather?q="+ city_name +"&appid="+ api_key +"&units="+unit;
@@ -49,7 +50,7 @@ app.get("/:cityname",function(req,res){;
                 lat = wetherdata.coord.lat;
                 deg="C";
                 W_unit="Km/h"
-                console.log(desp, temp, wind, pressure, icon, Temp_array, Date_array, Weather_array);
+                console.log(desp, temp, wind, pressure, icon, city_name, Temp_array, Date_array, Weather_array);
                 
                 //..............................................FORECASTING API DATA ............................................
             
@@ -110,7 +111,7 @@ app.post("/",function(req,res){
                 lat = wetherdata.coord.lat;
                 deg="C";
                 W_unit="Km/h"
-                console.log(desp, temp, wind, pressure, sunset, icon, Temp_array, Date_array, Weather_array);
+                console.log(desp, temp, wind, pressure,city_name, sunset, icon, Temp_array, Date_array, Weather_array);
                 
                 //..............................................FORECASTING API DATA ............................................
             
